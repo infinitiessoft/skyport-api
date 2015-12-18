@@ -71,6 +71,12 @@ public class TimedCIServicesTest {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(ciServices).hasConvergedHttpLoadBalancerSupport();
+				will(returnValue(true));
+				exactly(1).of(ciServices).hasConvergedInfrastructureSupport();
+				will(returnValue(true));
+				exactly(1).of(ciServices).hasTopologySupport();
+				will(returnValue(true));
 				exactly(1).of(ciServices).getConvergedHttpLoadBalancerSupport();
 				will(returnValue(convergedHttpLoadBalancerSupport));
 				exactly(1).of(ciServices).getConvergedInfrastructureSupport();

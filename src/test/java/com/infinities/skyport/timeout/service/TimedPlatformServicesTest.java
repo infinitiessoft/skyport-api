@@ -37,7 +37,6 @@ import org.junit.Test;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.PlatformConfiguration;
 
-
 public class TimedPlatformServicesTest {
 
 	protected Mockery context = new JUnit4Mockery() {
@@ -58,7 +57,8 @@ public class TimedPlatformServicesTest {
 	private PushNotificationSupport pushNotificationSupport;
 	private RelationalDatabaseSupport relationalDatabaseSupport;
 	private MonitoringSupport monitoringSupport;
-	
+
+
 	@Before
 	public void setUp() throws Exception {
 		platformServices = context.mock(PlatformServices.class);
@@ -83,6 +83,21 @@ public class TimedPlatformServicesTest {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(platformServices).hasCDNSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasDataWarehouseSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasKeyValueDatabaseSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasMessageQueueSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasPushNotificationSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasRelationalDatabaseSupport();
+				will(returnValue(true));
+				exactly(1).of(platformServices).hasMonitoringSupport();
+				will(returnValue(true));
+
 				exactly(1).of(platformServices).getCDNSupport();
 				will(returnValue(cdnSupport));
 				exactly(1).of(platformServices).getDataWarehouseSupport();

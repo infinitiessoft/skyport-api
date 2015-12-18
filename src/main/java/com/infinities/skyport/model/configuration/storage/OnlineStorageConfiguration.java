@@ -206,6 +206,11 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 
 	@Override
 	public OnlineStorageConfiguration clone() {
+		try {
+			super.clone();
+		} catch (CloneNotSupportedException e) {
+			// ignore
+		}
 		OnlineStorageConfiguration clone = new OnlineStorageConfiguration();
 		clone.clearBucket = clearBucket.clone();
 		clone.createBucket = createBucket.clone();

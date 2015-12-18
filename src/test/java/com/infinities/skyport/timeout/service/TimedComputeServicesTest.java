@@ -81,6 +81,19 @@ public class TimedComputeServicesTest {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(computeServices).hasAffinityGroupSupport();
+				will(returnValue(true));
+				exactly(1).of(computeServices).hasAutoScalingSupport();
+				will(returnValue(true));
+				exactly(1).of(computeServices).hasImageSupport();
+				will(returnValue(true));
+				exactly(1).of(computeServices).hasSnapshotSupport();
+				will(returnValue(true));
+				exactly(1).of(computeServices).hasVirtualMachineSupport();
+				will(returnValue(true));
+				exactly(1).of(computeServices).hasVolumeSupport();
+				will(returnValue(true));
+
 				exactly(1).of(computeServices).getAffinityGroupSupport();
 				will(returnValue(affinityGroupSupport));
 				exactly(1).of(computeServices).getAutoScalingSupport();

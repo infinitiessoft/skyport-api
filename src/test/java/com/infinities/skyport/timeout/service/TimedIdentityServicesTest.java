@@ -32,43 +32,49 @@ import org.junit.Test;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.IdentityConfiguration;
 
-
 public class TimedIdentityServicesTest {
-	
+
 	protected Mockery context = new JUnit4Mockery() {
-		
+
 		{
 			setThreadingPolicy(new Synchroniser());
 			setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
-	
+
 	private ExecutorService executorService;
 	private IdentityConfiguration identityConfiguration;
 	private IdentityServices identityServices;
-	
+
 	private IdentityAndAccessSupport identityAndAccessSupport;
 	private ShellKeySupport shellKeySupport;
-	
+
+
 	@Before
 	public void setUp() {
 		identityServices = context.mock(IdentityServices.class);
 		executorService = context.mock(ExecutorService.class);
 		identityConfiguration = new IdentityConfiguration();
-		
+
 		identityAndAccessSupport = context.mock(IdentityAndAccessSupport.class);
 		shellKeySupport = context.mock(ShellKeySupport.class);
 	}
-	
+
 	@After
 	public void tearDown() {
-		
+
 	}
-	
+
 	@Test
 	public void testTimedIdentityServices() throws InitializationException {
 		context.checking(new Expectations() {
+
 			{
+				exactly(1).of(identityServices).hasIdentityAndAccessSupport();
+				will(returnValue(true));
+				exactly(1).of(identityServices).hasShellKeySupport();
+				will(returnValue(true));
+
 				exactly(1).of(identityServices).getIdentityAndAccessSupport();
 				will(returnValue(identityAndAccessSupport));
 				exactly(1).of(identityServices).getShellKeySupport();

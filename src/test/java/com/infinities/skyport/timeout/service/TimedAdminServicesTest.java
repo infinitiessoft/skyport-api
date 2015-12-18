@@ -71,6 +71,12 @@ public class TimedAdminServicesTest {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(adminServices).hasPrepaymentSupport();
+				will(returnValue(true));
+				exactly(1).of(adminServices).hasAccountSupport();
+				will(returnValue(true));
+				exactly(1).of(adminServices).hasBillingSupport();
+				will(returnValue(true));
 				exactly(1).of(adminServices).getPrepaymentSupport();
 				will(returnValue(prepaymentSupport));
 				exactly(1).of(adminServices).getAccountSupport();

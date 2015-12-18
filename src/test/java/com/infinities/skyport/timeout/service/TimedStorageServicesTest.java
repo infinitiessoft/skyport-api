@@ -32,7 +32,6 @@ import org.junit.Test;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.StorageConfiguration;
 
-
 public class TimedStorageServicesTest {
 
 	protected Mockery context = new JUnit4Mockery() {
@@ -48,7 +47,8 @@ public class TimedStorageServicesTest {
 
 	private BlobStoreSupport blobStoreSupport;
 	private OfflineStoreSupport offlineStoreSupport;
-	
+
+
 	@Before
 	public void setUp() throws Exception {
 		storageServices = context.mock(StorageServices.class);
@@ -62,12 +62,17 @@ public class TimedStorageServicesTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void testTimedStorageServices() throws InitializationException {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(storageServices).hasOnlineStorageSupport();
+				will(returnValue(true));
+				exactly(1).of(storageServices).hasOfflineStorageSupport();
+				will(returnValue(true));
+
 				exactly(1).of(storageServices).getOnlineStorageSupport();
 				will(returnValue(blobStoreSupport));
 				exactly(1).of(storageServices).getOfflineStorageSupport();

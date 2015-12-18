@@ -84,6 +84,21 @@ public class TimedNetworkServicesTest {
 		context.checking(new Expectations() {
 
 			{
+				exactly(1).of(networkServices).hasDnsSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasFirewallSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasIpAddressSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasLoadBalancerSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasNetworkFirewallSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasVlanSupport();
+				will(returnValue(true));
+				exactly(1).of(networkServices).hasVpnSupport();
+				will(returnValue(true));
+
 				exactly(1).of(networkServices).getDnsSupport();
 				will(returnValue(dnsSupport));
 				exactly(1).of(networkServices).getFirewallSupport();
