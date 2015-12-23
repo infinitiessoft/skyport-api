@@ -70,6 +70,8 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 	private FunctionConfiguration updateTags = new FunctionConfiguration();
 	private FunctionConfiguration setTags = new FunctionConfiguration();
 	private FunctionConfiguration removeTags = new FunctionConfiguration();
+	private FunctionConfiguration listNovaStyleVirtualMachines = new FunctionConfiguration();
+	private FunctionConfiguration listMinimalVirtualMachines = new FunctionConfiguration();
 
 
 	public VirtualMachineConfiguration() {
@@ -381,6 +383,36 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		this.removeTags = removeTags;
 	}
 
+	/**
+	 * @return the listNovaStyleVirtualMachines
+	 */
+	public FunctionConfiguration getListNovaStyleVirtualMachines() {
+		return listNovaStyleVirtualMachines;
+	}
+
+	/**
+	 * @param listNovaStyleVirtualMachines
+	 *            the listNovaStyleVirtualMachines to set
+	 */
+	public void setListNovaStyleVirtualMachines(FunctionConfiguration listNovaStyleVirtualMachines) {
+		this.listNovaStyleVirtualMachines = listNovaStyleVirtualMachines;
+	}
+
+	/**
+	 * @return the listMinimalVirtualMachines
+	 */
+	public FunctionConfiguration getListMinimalVirtualMachines() {
+		return listMinimalVirtualMachines;
+	}
+
+	/**
+	 * @param listMinimalVirtualMachines
+	 *            the listMinimalVirtualMachines to set
+	 */
+	public void setListMinimalVirtualMachines(FunctionConfiguration listMinimalVirtualMachines) {
+		this.listMinimalVirtualMachines = listMinimalVirtualMachines;
+	}
+
 	@Override
 	public VirtualMachineConfiguration clone() {
 		VirtualMachineConfiguration clone = new VirtualMachineConfiguration();
@@ -423,6 +455,8 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		clone.setUpdateTags(updateTags.clone());
 		clone.setSetTags(setTags.clone());
 		clone.setRemoveTags(removeTags.clone());
+		clone.setListMinimalVirtualMachines(listMinimalVirtualMachines.clone());
+		clone.setListNovaStyleVirtualMachines(listNovaStyleVirtualMachines.clone());
 		return clone;
 	}
 
@@ -434,13 +468,11 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((alterVirtualMachineProduct == null) ? 0 : alterVirtualMachineProduct.hashCode());
 		result = prime * result + ((alterVirtualMachineSize == null) ? 0 : alterVirtualMachineSize.hashCode());
 		result = prime * result + ((cancelSpotDataFeedSubscription == null) ? 0 : cancelSpotDataFeedSubscription.hashCode());
-		result =
-				prime * result
-						+ ((cancelSpotVirtualMachineRequest == null) ? 0 : cancelSpotVirtualMachineRequest.hashCode());
+		result = prime * result
+				+ ((cancelSpotVirtualMachineRequest == null) ? 0 : cancelSpotVirtualMachineRequest.hashCode());
 		result = prime * result + ((clone == null) ? 0 : clone.hashCode());
-		result =
-				prime * result
-						+ ((createSpotVirtualMachineRequest == null) ? 0 : createSpotVirtualMachineRequest.hashCode());
+		result = prime * result
+				+ ((createSpotVirtualMachineRequest == null) ? 0 : createSpotVirtualMachineRequest.hashCode());
 		result = prime * result + ((disableAnalytics == null) ? 0 : disableAnalytics.hashCode());
 		result = prime * result + ((enableAnalytics == null) ? 0 : enableAnalytics.hashCode());
 		result = prime * result + ((enableSpotDataFeedSubscription == null) ? 0 : enableSpotDataFeedSubscription.hashCode());
@@ -472,6 +504,8 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((terminate == null) ? 0 : terminate.hashCode());
 		result = prime * result + ((unpause == null) ? 0 : unpause.hashCode());
 		result = prime * result + ((updateTags == null) ? 0 : updateTags.hashCode());
+		result = prime * result + ((listMinimalVirtualMachines == null) ? 0 : listMinimalVirtualMachines.hashCode());
+		result = prime * result + ((listNovaStyleVirtualMachines == null) ? 0 : listNovaStyleVirtualMachines.hashCode());
 		return result;
 	}
 
@@ -673,6 +707,16 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 			if (other.updateTags != null)
 				return false;
 		} else if (!updateTags.equals(other.updateTags))
+			return false;
+		if (listMinimalVirtualMachines == null) {
+			if (other.listMinimalVirtualMachines != null)
+				return false;
+		} else if (!listMinimalVirtualMachines.equals(other.listMinimalVirtualMachines))
+			return false;
+		if (listNovaStyleVirtualMachines == null) {
+			if (other.listNovaStyleVirtualMachines != null)
+				return false;
+		} else if (!listNovaStyleVirtualMachines.equals(other.listNovaStyleVirtualMachines))
 			return false;
 		return true;
 	}

@@ -19,60 +19,54 @@ import java.util.concurrent.ExecutorService;
 
 import org.dasein.cloud.compute.AffinityGroupSupport;
 import org.dasein.cloud.compute.AutoScalingSupport;
-import org.dasein.cloud.compute.ComputeServices;
 import org.dasein.cloud.compute.MachineImageSupport;
 import org.dasein.cloud.compute.SnapshotSupport;
-import org.dasein.cloud.compute.VirtualMachineSupport;
 import org.dasein.cloud.compute.VolumeSupport;
 
+import com.infinities.skyport.compute.SkyportComputeServices;
+import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.ComputeConfiguration;
 import com.infinities.skyport.timeout.ServiceProviderTimeLimiter;
 
-public class TimedComputeServices implements ComputeServices {
+public class TimedComputeServices implements SkyportComputeServices {
 
-	private ComputeServices inner;
+	private SkyportComputeServices inner;
 	private AffinityGroupSupport timedAffinityGroupSupport;
 	private AutoScalingSupport timedAutoScalingSupport;
 	private MachineImageSupport timedMachineImageSupport;
 	private SnapshotSupport timedSnapshotSupport;
-	private VirtualMachineSupport timedVirtualMachineSupport;
+	private SkyportVirtualMachineSupport timedVirtualMachineSupport;
 	private VolumeSupport timedVolumeSupport;
 
 
-	public TimedComputeServices(ComputeServices inner, ComputeConfiguration computeConfiguration, ExecutorService executor)
-			throws InitializationException {
+	public TimedComputeServices(SkyportComputeServices inner, ComputeConfiguration computeConfiguration,
+			ExecutorService executor) throws InitializationException {
 		this.inner = inner;
 		ServiceProviderTimeLimiter timedLimiter = new ServiceProviderTimeLimiter(executor);
 		if (inner.hasAffinityGroupSupport()) {
-			this.timedAffinityGroupSupport =
-					timedLimiter.newProxy(inner.getAffinityGroupSupport(), AffinityGroupSupport.class,
-							computeConfiguration.getAffinityGroupConfiguration());
+			this.timedAffinityGroupSupport = timedLimiter.newProxy(inner.getAffinityGroupSupport(),
+					AffinityGroupSupport.class, computeConfiguration.getAffinityGroupConfiguration());
 		}
 		if (inner.hasAutoScalingSupport()) {
-			this.timedAutoScalingSupport =
-					timedLimiter.newProxy(inner.getAutoScalingSupport(), AutoScalingSupport.class,
-							computeConfiguration.getAutoScalingConfiguration());
+			this.timedAutoScalingSupport = timedLimiter.newProxy(inner.getAutoScalingSupport(), AutoScalingSupport.class,
+					computeConfiguration.getAutoScalingConfiguration());
 		}
 		if (inner.hasImageSupport()) {
-			this.timedMachineImageSupport =
-					timedLimiter.newProxy(inner.getImageSupport(), MachineImageSupport.class,
-							computeConfiguration.getMachineImageConfiguration());
+			this.timedMachineImageSupport = timedLimiter.newProxy(inner.getImageSupport(), MachineImageSupport.class,
+					computeConfiguration.getMachineImageConfiguration());
 		}
 		if (inner.hasSnapshotSupport()) {
-			this.timedSnapshotSupport =
-					timedLimiter.newProxy(inner.getSnapshotSupport(), SnapshotSupport.class,
-							computeConfiguration.getSnapshotConfiguration());
+			this.timedSnapshotSupport = timedLimiter.newProxy(inner.getSnapshotSupport(), SnapshotSupport.class,
+					computeConfiguration.getSnapshotConfiguration());
 		}
 		if (inner.hasVirtualMachineSupport()) {
-			this.timedVirtualMachineSupport =
-					timedLimiter.newProxy(inner.getVirtualMachineSupport(), VirtualMachineSupport.class,
-							computeConfiguration.getVirtualMachineConfiguration());
+			this.timedVirtualMachineSupport = timedLimiter.newProxy(inner.getSkyportVirtualMachineSupport(),
+					SkyportVirtualMachineSupport.class, computeConfiguration.getVirtualMachineConfiguration());
 		}
 		if (inner.hasVolumeSupport()) {
-			this.timedVolumeSupport =
-					timedLimiter.newProxy(inner.getVolumeSupport(), VolumeSupport.class,
-							computeConfiguration.getVolumeConfiguration());
+			this.timedVolumeSupport = timedLimiter.newProxy(inner.getVolumeSupport(), VolumeSupport.class,
+					computeConfiguration.getVolumeConfiguration());
 		}
 	}
 
@@ -97,7 +91,7 @@ public class TimedComputeServices implements ComputeServices {
 	}
 
 	@Override
-	public VirtualMachineSupport getVirtualMachineSupport() {
+	public SkyportVirtualMachineSupport getSkyportVirtualMachineSupport() {
 		return this.timedVirtualMachineSupport;
 	}
 

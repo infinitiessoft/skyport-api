@@ -40,21 +40,16 @@ import com.infinities.skyport.model.configuration.Configuration;
 public interface AsyncServiceProvider {
 
 	public enum TaskType {
-		VirtualMachineSupport, AffinityGroupSupport, MachineImageSupport, SnapshotSupport, VolumeSupport,
-		AutoScalingSupport, PrepaymentSupport, AccountSupport, BillingSupport, ConvergedInfrastructureSupport,
-		ConvergedHttpLoadBalancerSupport, TopologySupport, IdentityAndAccessSupport, ShellKeySupport, DNSSupport,
-		FirewallSupport, IpAddressSupport, LoadBalancerSupport, NetworkFirewallSupport, VLANSupport, VpnSupport, CDNSupport,
-		DataWarehouseSupport, KeyValueDatabaseSupport, MQSupport, PushNotificationSupport, RelationalDatabaseSupport,
-		MonitoringSupport, OfflineStoreSupport, BlobStoreSupport, DataCenterServices;
+		VirtualMachineSupport, AffinityGroupSupport, MachineImageSupport, SnapshotSupport, VolumeSupport, AutoScalingSupport, PrepaymentSupport, AccountSupport, BillingSupport, ConvergedInfrastructureSupport, ConvergedHttpLoadBalancerSupport, TopologySupport, IdentityAndAccessSupport, ShellKeySupport, DNSSupport, FirewallSupport, IpAddressSupport, LoadBalancerSupport, NetworkFirewallSupport, VLANSupport, VpnSupport, CDNSupport, DataWarehouseSupport, KeyValueDatabaseSupport, MQSupport, PushNotificationSupport, RelationalDatabaseSupport, MonitoringSupport, OfflineStoreSupport, BlobStoreSupport, DataCenterServices;
 
 		public static Object getSupport(TaskType type, ServiceProvider serviceProvider) throws ConcurrentException {
 			switch (type) {
 			case AccountSupport:
 				return serviceProvider.getAdminServices().getAccountSupport();
 			case AffinityGroupSupport:
-				return serviceProvider.getComputeServices().getAffinityGroupSupport();
+				return serviceProvider.getSkyportComputeServices().getAffinityGroupSupport();
 			case AutoScalingSupport:
-				return serviceProvider.getComputeServices().getAutoScalingSupport();
+				return serviceProvider.getSkyportComputeServices().getAutoScalingSupport();
 			case BillingSupport:
 				return serviceProvider.getAdminServices().getBillingSupport();
 			case BlobStoreSupport:
@@ -84,7 +79,7 @@ public interface AsyncServiceProvider {
 			case MQSupport:
 				return serviceProvider.getPlatformServices().getMessageQueueSupport();
 			case MachineImageSupport:
-				return serviceProvider.getComputeServices().getImageSupport();
+				return serviceProvider.getSkyportComputeServices().getImageSupport();
 			case MonitoringSupport:
 				return serviceProvider.getPlatformServices().getMonitoringSupport();
 			case NetworkFirewallSupport:
@@ -100,7 +95,7 @@ public interface AsyncServiceProvider {
 			case ShellKeySupport:
 				return serviceProvider.getIdentityServices().getShellKeySupport();
 			case SnapshotSupport:
-				return serviceProvider.getComputeServices().getSnapshotSupport();
+				return serviceProvider.getSkyportComputeServices().getSnapshotSupport();
 			case TopologySupport:
 				return serviceProvider.getCIServices().getTopologySupport();
 			case VLANSupport:
@@ -108,9 +103,9 @@ public interface AsyncServiceProvider {
 			case VpnSupport:
 				return serviceProvider.getNetworkServices().getVpnSupport();
 			case VirtualMachineSupport:
-				return serviceProvider.getComputeServices().getVirtualMachineSupport();
+				return serviceProvider.getSkyportComputeServices().getSkyportVirtualMachineSupport();
 			case VolumeSupport:
-				return serviceProvider.getComputeServices().getVolumeSupport();
+				return serviceProvider.getSkyportComputeServices().getVolumeSupport();
 			default:
 				throw new IllegalArgumentException("Unknown TaskType:" + type);
 

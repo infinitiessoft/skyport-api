@@ -25,7 +25,6 @@ import org.dasein.cloud.InternalException;
 import org.dasein.cloud.ProviderContext;
 import org.dasein.cloud.admin.AdminServices;
 import org.dasein.cloud.ci.CIServices;
-import org.dasein.cloud.compute.ComputeServices;
 import org.dasein.cloud.dc.DataCenterServices;
 import org.dasein.cloud.identity.IdentityServices;
 import org.dasein.cloud.network.NetworkServices;
@@ -37,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.infinities.skyport.ServiceProvider;
+import com.infinities.skyport.compute.SkyportComputeServices;
 import com.infinities.skyport.model.configuration.Configuration;
 import com.infinities.skyport.service.ConfigurationLifeCycleListener;
 import com.infinities.skyport.timeout.service.concurrent.TimedAdminServicesLazyInitializer;
@@ -73,26 +73,25 @@ public class TimedServiceProvider implements ServiceProvider, ConfigurationLifeC
 	}
 
 	private void setUpServices(Configuration configuration) throws ConcurrentException {
-		this.timedComputeServices =
-				new TimedComputeServicesLazyInitializer(inner, configuration.getComputeConfiguration(), worker);
+		this.timedComputeServices = new TimedComputeServicesLazyInitializer(inner, configuration.getComputeConfiguration(),
+				worker);
 
-		this.timedNetworkServices =
-				new TimedNetworkServicesLazyInitializer(inner, configuration.getNetworkConfiguration(), worker);
+		this.timedNetworkServices = new TimedNetworkServicesLazyInitializer(inner, configuration.getNetworkConfiguration(),
+				worker);
 
-		this.timedStorageServices =
-				new TimedStorageServicesLazyInitializer(inner, configuration.getStorageConfiguration(), worker);
+		this.timedStorageServices = new TimedStorageServicesLazyInitializer(inner, configuration.getStorageConfiguration(),
+				worker);
 
-		this.timedIdentityServices =
-				new TimedIdentityServicesLazyInitializer(inner, configuration.getIdentityConfiguration(), worker);
+		this.timedIdentityServices = new TimedIdentityServicesLazyInitializer(inner,
+				configuration.getIdentityConfiguration(), worker);
 
-		this.timedAdminServices =
-				new TimedAdminServicesLazyInitializer(inner, configuration.getAdminConfiguration(), worker);
+		this.timedAdminServices = new TimedAdminServicesLazyInitializer(inner, configuration.getAdminConfiguration(), worker);
 		this.timedCIServices = new TimedCIServicesLazyInitializer(inner, configuration.getcIConfiguration(), worker);
 
-		this.timedPlatformServices =
-				new TimedPlatformServicesLazyInitializer(inner, configuration.getPlatformConfiguration(), worker);
-		this.timedDataCenterServices =
-				new TimedDataCenterServicesLazyInitializer(inner, configuration.getDataCenterConfiguration(), worker);
+		this.timedPlatformServices = new TimedPlatformServicesLazyInitializer(inner,
+				configuration.getPlatformConfiguration(), worker);
+		this.timedDataCenterServices = new TimedDataCenterServicesLazyInitializer(inner,
+				configuration.getDataCenterConfiguration(), worker);
 	}
 
 	@Override
@@ -186,7 +185,7 @@ public class TimedServiceProvider implements ServiceProvider, ConfigurationLifeC
 	}
 
 	@Override
-	public ComputeServices getComputeServices() throws ConcurrentException {
+	public SkyportComputeServices getSkyportComputeServices() throws ConcurrentException {
 		return timedComputeServices.get();
 	}
 

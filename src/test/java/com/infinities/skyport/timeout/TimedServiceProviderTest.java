@@ -28,10 +28,8 @@ import org.dasein.cloud.ci.ConvergedInfrastructureSupport;
 import org.dasein.cloud.ci.TopologySupport;
 import org.dasein.cloud.compute.AffinityGroupSupport;
 import org.dasein.cloud.compute.AutoScalingSupport;
-import org.dasein.cloud.compute.ComputeServices;
 import org.dasein.cloud.compute.MachineImageSupport;
 import org.dasein.cloud.compute.SnapshotSupport;
-import org.dasein.cloud.compute.VirtualMachineSupport;
 import org.dasein.cloud.compute.VolumeSupport;
 import org.dasein.cloud.dc.DataCenterServices;
 import org.dasein.cloud.identity.IdentityAndAccessSupport;
@@ -66,6 +64,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.infinities.skyport.ServiceProvider;
+import com.infinities.skyport.compute.SkyportComputeServices;
+import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
 import com.infinities.skyport.model.configuration.Configuration;
 
 public class TimedServiceProviderTest {
@@ -81,7 +81,7 @@ public class TimedServiceProviderTest {
 	private ExecutorService executorService;
 	private Configuration configuration;
 
-	private ComputeServices computeServices;
+	private SkyportComputeServices computeServices;
 	private NetworkServices networkServices;
 	private AdminServices adminServices;
 	private CIServices ciServices;
@@ -94,7 +94,7 @@ public class TimedServiceProviderTest {
 	private AutoScalingSupport autoScalingSupport;
 	private MachineImageSupport machineImageSupport;
 	private SnapshotSupport snapshotSupport;
-	private VirtualMachineSupport virtualMachineSupport;
+	private SkyportVirtualMachineSupport virtualMachineSupport;
 	private VolumeSupport volumeSupport;
 
 	private DNSSupport dnsSupport;
@@ -137,7 +137,7 @@ public class TimedServiceProviderTest {
 		serviceProvider = context.mock(ServiceProvider.class);
 		executorService = context.mock(ExecutorService.class);
 
-		computeServices = context.mock(ComputeServices.class);
+		computeServices = context.mock(SkyportComputeServices.class);
 		networkServices = context.mock(NetworkServices.class);
 		adminServices = context.mock(AdminServices.class);
 		ciServices = context.mock(CIServices.class);
@@ -150,7 +150,7 @@ public class TimedServiceProviderTest {
 		autoScalingSupport = context.mock(AutoScalingSupport.class);
 		machineImageSupport = context.mock(MachineImageSupport.class);
 		snapshotSupport = context.mock(SnapshotSupport.class);
-		virtualMachineSupport = context.mock(VirtualMachineSupport.class);
+		virtualMachineSupport = context.mock(SkyportVirtualMachineSupport.class);
 		volumeSupport = context.mock(VolumeSupport.class);
 
 		dnsSupport = context.mock(DNSSupport.class);
@@ -314,7 +314,7 @@ public class TimedServiceProviderTest {
 				exactly(1).of(serviceProvider).hasComputeServices();
 				will(returnValue(true));
 
-				exactly(1).of(serviceProvider).getComputeServices();
+				exactly(1).of(serviceProvider).getSkyportComputeServices();
 				will(returnValue(computeServices));
 
 				exactly(1).of(computeServices).hasAffinityGroupSupport();
@@ -338,14 +338,14 @@ public class TimedServiceProviderTest {
 				will(returnValue(machineImageSupport));
 				exactly(1).of(computeServices).getSnapshotSupport();
 				will(returnValue(snapshotSupport));
-				exactly(1).of(computeServices).getVirtualMachineSupport();
+				exactly(1).of(computeServices).getSkyportVirtualMachineSupport();
 				will(returnValue(virtualMachineSupport));
 				exactly(1).of(computeServices).getVolumeSupport();
 				will(returnValue(volumeSupport));
 			}
 		});
 
-		provider.getComputeServices();
+		provider.getSkyportComputeServices();
 	}
 
 	@Test

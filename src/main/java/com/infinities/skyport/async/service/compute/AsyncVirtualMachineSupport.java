@@ -37,13 +37,15 @@ import org.dasein.cloud.compute.VirtualMachineCapabilities;
 import org.dasein.cloud.compute.VirtualMachineProduct;
 import org.dasein.cloud.compute.VirtualMachineProductFilterOptions;
 import org.dasein.cloud.compute.VirtualMachineStatus;
-import org.dasein.cloud.compute.VirtualMachineSupport;
 import org.dasein.cloud.compute.VmState;
 import org.dasein.cloud.compute.VmStatistics;
 import org.dasein.cloud.compute.VmStatusFilterOptions;
 import org.dasein.cloud.identity.ServiceAction;
 
 import com.infinities.skyport.async.AsyncResult;
+import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
+import com.infinities.skyport.compute.entity.MinimalResource;
+import com.infinities.skyport.compute.entity.NovaStyleVirtualMachine;
 
 public interface AsyncVirtualMachineSupport extends AccessControlledService {
 
@@ -843,5 +845,29 @@ public interface AsyncVirtualMachineSupport extends AccessControlledService {
 	public AsyncResult<Void> removeTags(@Nonnull String[] vmIds, @Nonnull Tag... tags) throws CloudException,
 			InternalException;
 
-	VirtualMachineSupport getSupport();
+	/**
+	 * Lists all virtual machines in OpenStack Nova api style in the current
+	 * region.
+	 *
+	 * @return id and name for all virtual machines in the current region
+	 * @throws InternalException
+	 *             an error occurred within the Dasein Cloud implementation
+	 * @throws CloudException
+	 *             an error occurred with the cloud provider
+	 */
+	public AsyncResult<Iterable<NovaStyleVirtualMachine>> listNovaStyleVirtualMachines() throws InternalException,
+			CloudException;
+
+	/**
+	 * Lists only id and name for all virtual machines in the current region.
+	 *
+	 * @return id and name for all virtual machines in the current region
+	 * @throws InternalException
+	 *             an error occurred within the Dasein Cloud implementation
+	 * @throws CloudException
+	 *             an error occurred with the cloud provider
+	 */
+	public AsyncResult<Iterable<MinimalResource>> listMinimalVirtualMachines() throws InternalException, CloudException;
+
+	public SkyportVirtualMachineSupport getSupport();
 }

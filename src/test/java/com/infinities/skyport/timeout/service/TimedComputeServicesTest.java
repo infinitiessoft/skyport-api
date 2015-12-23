@@ -19,7 +19,6 @@ import java.util.concurrent.ExecutorService;
 
 import org.dasein.cloud.compute.AffinityGroupSupport;
 import org.dasein.cloud.compute.AutoScalingSupport;
-import org.dasein.cloud.compute.ComputeServices;
 import org.dasein.cloud.compute.MachineImageSupport;
 import org.dasein.cloud.compute.SnapshotSupport;
 import org.dasein.cloud.compute.VirtualMachineSupport;
@@ -33,6 +32,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.infinities.skyport.compute.SkyportComputeServices;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.ComputeConfiguration;
 
@@ -47,7 +47,7 @@ public class TimedComputeServicesTest {
 	};
 
 	private ExecutorService executorService;
-	private ComputeServices computeServices;
+	private SkyportComputeServices computeServices;
 	private ComputeConfiguration configuration;
 
 	private AffinityGroupSupport affinityGroupSupport;
@@ -60,7 +60,7 @@ public class TimedComputeServicesTest {
 
 	@Before
 	public void setUp() {
-		computeServices = context.mock(ComputeServices.class);
+		computeServices = context.mock(SkyportComputeServices.class);
 		executorService = context.mock(ExecutorService.class);
 		configuration = new ComputeConfiguration();
 
@@ -102,7 +102,7 @@ public class TimedComputeServicesTest {
 				will(returnValue(machineImageSupport));
 				exactly(1).of(computeServices).getSnapshotSupport();
 				will(returnValue(snapshotSupport));
-				exactly(1).of(computeServices).getVirtualMachineSupport();
+				exactly(1).of(computeServices).getSkyportVirtualMachineSupport();
 				will(returnValue(virtualMachineSupport));
 				exactly(1).of(computeServices).getVolumeSupport();
 				will(returnValue(volumeSupport));

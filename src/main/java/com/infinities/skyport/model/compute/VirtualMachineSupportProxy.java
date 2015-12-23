@@ -33,13 +33,15 @@ import org.dasein.cloud.compute.VirtualMachineCapabilities;
 import org.dasein.cloud.compute.VirtualMachineProduct;
 import org.dasein.cloud.compute.VirtualMachineProductFilterOptions;
 import org.dasein.cloud.compute.VirtualMachineStatus;
-import org.dasein.cloud.compute.VirtualMachineSupport;
 import org.dasein.cloud.compute.VmStatistics;
 import org.dasein.cloud.compute.VmStatusFilterOptions;
 import org.dasein.cloud.identity.ServiceAction;
 
 import com.infinities.skyport.async.AsyncResult;
 import com.infinities.skyport.async.service.compute.AsyncVirtualMachineSupport;
+import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
+import com.infinities.skyport.compute.entity.MinimalResource;
+import com.infinities.skyport.compute.entity.NovaStyleVirtualMachine;
 
 public class VirtualMachineSupportProxy implements AsyncVirtualMachineSupport, Serializable {
 
@@ -321,8 +323,33 @@ public class VirtualMachineSupportProxy implements AsyncVirtualMachineSupport, S
 	}
 
 	@Override
-	public VirtualMachineSupport getSupport() {
+	public SkyportVirtualMachineSupport getSupport() {
 		return support.getSupport();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.infinities.skyport.async.service.compute.AsyncVirtualMachineSupport
+	 * #listNovaStyleVirtualMachines()
+	 */
+	@Override
+	public AsyncResult<Iterable<NovaStyleVirtualMachine>> listNovaStyleVirtualMachines() throws InternalException,
+			CloudException {
+		return support.listNovaStyleVirtualMachines();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.infinities.skyport.async.service.compute.AsyncVirtualMachineSupport
+	 * #listMinimalVirtualMachines()
+	 */
+	@Override
+	public AsyncResult<Iterable<MinimalResource>> listMinimalVirtualMachines() throws InternalException, CloudException {
+		return support.listMinimalVirtualMachines();
 	}
 
 }
