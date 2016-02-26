@@ -22,8 +22,6 @@ import org.dasein.cloud.network.FirewallSupport;
 import org.dasein.cloud.network.IpAddressSupport;
 import org.dasein.cloud.network.LoadBalancerSupport;
 import org.dasein.cloud.network.NetworkFirewallSupport;
-import org.dasein.cloud.network.NetworkServices;
-import org.dasein.cloud.network.VLANSupport;
 import org.dasein.cloud.network.VpnSupport;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -36,6 +34,8 @@ import org.junit.Test;
 
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.NetworkConfiguration;
+import com.infinities.skyport.network.SkyportNetworkServices;
+import com.infinities.skyport.network.SkyportVLANSupport;
 
 public class TimedNetworkServicesTest {
 
@@ -48,7 +48,7 @@ public class TimedNetworkServicesTest {
 	};
 
 	private ExecutorService executorService;
-	private NetworkServices networkServices;
+	private SkyportNetworkServices networkServices;
 	private NetworkConfiguration networkConfiguration;
 
 	private DNSSupport dnsSupport;
@@ -56,13 +56,13 @@ public class TimedNetworkServicesTest {
 	private IpAddressSupport ipAddressSupport;
 	private LoadBalancerSupport loadBalancerSupport;
 	private NetworkFirewallSupport networkFirewallSupport;
-	private VLANSupport vlanSupport;
+	private SkyportVLANSupport vlanSupport;
 	private VpnSupport vpnSupport;
 
 
 	@Before
 	public void setUp() throws Exception {
-		networkServices = context.mock(NetworkServices.class);
+		networkServices = context.mock(SkyportNetworkServices.class);
 		executorService = context.mock(ExecutorService.class);
 		networkConfiguration = new NetworkConfiguration();
 
@@ -71,7 +71,7 @@ public class TimedNetworkServicesTest {
 		ipAddressSupport = context.mock(IpAddressSupport.class);
 		loadBalancerSupport = context.mock(LoadBalancerSupport.class);
 		networkFirewallSupport = context.mock(NetworkFirewallSupport.class);
-		vlanSupport = context.mock(VLANSupport.class);
+		vlanSupport = context.mock(SkyportVLANSupport.class);
 		vpnSupport = context.mock(VpnSupport.class);
 	}
 
@@ -109,7 +109,7 @@ public class TimedNetworkServicesTest {
 				will(returnValue(loadBalancerSupport));
 				exactly(1).of(networkServices).getNetworkFirewallSupport();
 				will(returnValue(networkFirewallSupport));
-				exactly(1).of(networkServices).getVlanSupport();
+				exactly(1).of(networkServices).getSkyportVlanSupport();
 				will(returnValue(vlanSupport));
 				exactly(1).of(networkServices).getVpnSupport();
 				will(returnValue(vpnSupport));

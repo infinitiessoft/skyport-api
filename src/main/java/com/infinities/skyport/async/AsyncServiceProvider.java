@@ -61,21 +61,21 @@ public interface AsyncServiceProvider {
 			case ConvergedInfrastructureSupport:
 				return serviceProvider.getCIServices().getConvergedInfrastructureSupport();
 			case DNSSupport:
-				return serviceProvider.getNetworkServices().getDnsSupport();
+				return serviceProvider.getSkyportNetworkServices().getDnsSupport();
 			case DataCenterServices:
-				return serviceProvider.getDataCenterServices();
+				return serviceProvider.getSkyportDataCenterServices();
 			case DataWarehouseSupport:
 				return serviceProvider.getPlatformServices().getDataWarehouseSupport();
 			case FirewallSupport:
-				return serviceProvider.getNetworkServices().getFirewallSupport();
+				return serviceProvider.getSkyportNetworkServices().getFirewallSupport();
 			case IdentityAndAccessSupport:
 				return serviceProvider.getIdentityServices().getIdentityAndAccessSupport();
 			case IpAddressSupport:
-				return serviceProvider.getNetworkServices().getIpAddressSupport();
+				return serviceProvider.getSkyportNetworkServices().getIpAddressSupport();
 			case KeyValueDatabaseSupport:
 				return serviceProvider.getPlatformServices().getKeyValueDatabaseSupport();
 			case LoadBalancerSupport:
-				return serviceProvider.getNetworkServices().getLoadBalancerSupport();
+				return serviceProvider.getSkyportNetworkServices().getLoadBalancerSupport();
 			case MQSupport:
 				return serviceProvider.getPlatformServices().getMessageQueueSupport();
 			case MachineImageSupport:
@@ -83,7 +83,7 @@ public interface AsyncServiceProvider {
 			case MonitoringSupport:
 				return serviceProvider.getPlatformServices().getMonitoringSupport();
 			case NetworkFirewallSupport:
-				return serviceProvider.getNetworkServices().getNetworkFirewallSupport();
+				return serviceProvider.getSkyportNetworkServices().getNetworkFirewallSupport();
 			case OfflineStoreSupport:
 				return serviceProvider.getStorageServices().getOfflineStorageSupport();
 			case PrepaymentSupport:
@@ -99,9 +99,9 @@ public interface AsyncServiceProvider {
 			case TopologySupport:
 				return serviceProvider.getCIServices().getTopologySupport();
 			case VLANSupport:
-				return serviceProvider.getNetworkServices().getVlanSupport();
+				return serviceProvider.getSkyportNetworkServices().getSkyportVlanSupport();
 			case VpnSupport:
-				return serviceProvider.getNetworkServices().getVpnSupport();
+				return serviceProvider.getSkyportNetworkServices().getVpnSupport();
 			case VirtualMachineSupport:
 				return serviceProvider.getSkyportComputeServices().getSkyportVirtualMachineSupport();
 			case VolumeSupport:

@@ -31,7 +31,6 @@ import org.dasein.cloud.compute.AutoScalingSupport;
 import org.dasein.cloud.compute.MachineImageSupport;
 import org.dasein.cloud.compute.SnapshotSupport;
 import org.dasein.cloud.compute.VolumeSupport;
-import org.dasein.cloud.dc.DataCenterServices;
 import org.dasein.cloud.identity.IdentityAndAccessSupport;
 import org.dasein.cloud.identity.IdentityServices;
 import org.dasein.cloud.identity.ShellKeySupport;
@@ -40,8 +39,6 @@ import org.dasein.cloud.network.FirewallSupport;
 import org.dasein.cloud.network.IpAddressSupport;
 import org.dasein.cloud.network.LoadBalancerSupport;
 import org.dasein.cloud.network.NetworkFirewallSupport;
-import org.dasein.cloud.network.NetworkServices;
-import org.dasein.cloud.network.VLANSupport;
 import org.dasein.cloud.network.VpnSupport;
 import org.dasein.cloud.platform.CDNSupport;
 import org.dasein.cloud.platform.KeyValueDatabaseSupport;
@@ -66,7 +63,10 @@ import org.junit.Test;
 import com.infinities.skyport.ServiceProvider;
 import com.infinities.skyport.compute.SkyportComputeServices;
 import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
+import com.infinities.skyport.dc.SkyportDataCenterServices;
 import com.infinities.skyport.model.configuration.Configuration;
+import com.infinities.skyport.network.SkyportNetworkServices;
+import com.infinities.skyport.network.SkyportVLANSupport;
 
 public class TimedServiceProviderTest {
 
@@ -82,13 +82,13 @@ public class TimedServiceProviderTest {
 	private Configuration configuration;
 
 	private SkyportComputeServices computeServices;
-	private NetworkServices networkServices;
+	private SkyportNetworkServices networkServices;
 	private AdminServices adminServices;
 	private CIServices ciServices;
 	private IdentityServices identityServices;
 	private PlatformServices platformServices;
 	private StorageServices storageServices;
-	private DataCenterServices dataCenterServices;
+	private SkyportDataCenterServices dataCenterServices;
 
 	private AffinityGroupSupport affinityGroupSupport;
 	private AutoScalingSupport autoScalingSupport;
@@ -102,7 +102,7 @@ public class TimedServiceProviderTest {
 	private IpAddressSupport ipAddressSupport;
 	private LoadBalancerSupport loadBalancerSupport;
 	private NetworkFirewallSupport networkFirewallSupport;
-	private VLANSupport vlanSupport;
+	private SkyportVLANSupport vlanSupport;
 	private VpnSupport vpnSupport;
 
 	private PrepaymentSupport prepaymentSupport;
@@ -138,13 +138,13 @@ public class TimedServiceProviderTest {
 		executorService = context.mock(ExecutorService.class);
 
 		computeServices = context.mock(SkyportComputeServices.class);
-		networkServices = context.mock(NetworkServices.class);
+		networkServices = context.mock(SkyportNetworkServices.class);
 		adminServices = context.mock(AdminServices.class);
 		ciServices = context.mock(CIServices.class);
 		identityServices = context.mock(IdentityServices.class);
 		platformServices = context.mock(PlatformServices.class);
 		storageServices = context.mock(StorageServices.class);
-		dataCenterServices = context.mock(DataCenterServices.class);
+		dataCenterServices = context.mock(SkyportDataCenterServices.class);
 
 		affinityGroupSupport = context.mock(AffinityGroupSupport.class);
 		autoScalingSupport = context.mock(AutoScalingSupport.class);
@@ -158,7 +158,7 @@ public class TimedServiceProviderTest {
 		ipAddressSupport = context.mock(IpAddressSupport.class);
 		loadBalancerSupport = context.mock(LoadBalancerSupport.class);
 		networkFirewallSupport = context.mock(NetworkFirewallSupport.class);
-		vlanSupport = context.mock(VLANSupport.class);
+		vlanSupport = context.mock(SkyportVLANSupport.class);
 		vpnSupport = context.mock(VpnSupport.class);
 
 		prepaymentSupport = context.mock(PrepaymentSupport.class);
@@ -264,13 +264,13 @@ public class TimedServiceProviderTest {
 
 			{
 
-				exactly(2).of(serviceProvider).getDataCenterServices();
+				exactly(2).of(serviceProvider).getSkyportDataCenterServices();
 				will(returnValue(dataCenterServices));
 
 			}
 		});
 
-		provider.getDataCenterServices();
+		provider.getSkyportDataCenterServices();
 	}
 
 	@Test
@@ -383,7 +383,7 @@ public class TimedServiceProviderTest {
 				exactly(1).of(serviceProvider).hasNetworkServices();
 				will(returnValue(true));
 
-				exactly(1).of(serviceProvider).getNetworkServices();
+				exactly(1).of(serviceProvider).getSkyportNetworkServices();
 				will(returnValue(networkServices));
 
 				exactly(1).of(networkServices).hasDnsSupport();
@@ -411,13 +411,13 @@ public class TimedServiceProviderTest {
 				will(returnValue(loadBalancerSupport));
 				exactly(1).of(networkServices).getNetworkFirewallSupport();
 				will(returnValue(networkFirewallSupport));
-				exactly(1).of(networkServices).getVlanSupport();
+				exactly(1).of(networkServices).getSkyportVlanSupport();
 				will(returnValue(vlanSupport));
 				exactly(1).of(networkServices).getVpnSupport();
 				will(returnValue(vpnSupport));
 			}
 		});
-		provider.getNetworkServices();
+		provider.getSkyportNetworkServices();
 	}
 
 	@Test

@@ -22,28 +22,28 @@ import org.dasein.cloud.network.FirewallSupport;
 import org.dasein.cloud.network.IpAddressSupport;
 import org.dasein.cloud.network.LoadBalancerSupport;
 import org.dasein.cloud.network.NetworkFirewallSupport;
-import org.dasein.cloud.network.NetworkServices;
-import org.dasein.cloud.network.VLANSupport;
 import org.dasein.cloud.network.VpnSupport;
 
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.NetworkConfiguration;
+import com.infinities.skyport.network.SkyportNetworkServices;
+import com.infinities.skyport.network.SkyportVLANSupport;
 import com.infinities.skyport.timeout.ServiceProviderTimeLimiter;
 
-public class TimedNetworkServices implements NetworkServices {
+public class TimedNetworkServices implements SkyportNetworkServices {
 
-	private NetworkServices inner;
+	private SkyportNetworkServices inner;
 	private DNSSupport timedDnsSupport;
 	private FirewallSupport timedFirewallSupport;
 	private IpAddressSupport timedIpAddressSupport;
 	private LoadBalancerSupport timedLoadBalancerSupport;
 	private NetworkFirewallSupport timedNetworkFirewallSupport;
-	private VLANSupport timedVLANSupport;
+	private SkyportVLANSupport timedVLANSupport;
 	private VpnSupport timeVpnSupport;
 
 
-	public TimedNetworkServices(NetworkServices inner, NetworkConfiguration networkConfiguration, ExecutorService executor)
-			throws InitializationException {
+	public TimedNetworkServices(SkyportNetworkServices inner, NetworkConfiguration networkConfiguration,
+			ExecutorService executor) throws InitializationException {
 		this.inner = inner;
 		ServiceProviderTimeLimiter timedLimiter = new ServiceProviderTimeLimiter(executor);
 		if (inner.hasDnsSupport()) {
@@ -73,7 +73,7 @@ public class TimedNetworkServices implements NetworkServices {
 		}
 		if (inner.hasVlanSupport()) {
 			this.timedVLANSupport =
-					timedLimiter.newProxy(inner.getVlanSupport(), VLANSupport.class,
+					timedLimiter.newProxy(inner.getSkyportVlanSupport(), SkyportVLANSupport.class,
 							networkConfiguration.getvLANConfiguration());
 		}
 		if (inner.hasVpnSupport()) {
@@ -109,7 +109,7 @@ public class TimedNetworkServices implements NetworkServices {
 	}
 
 	@Override
-	public VLANSupport getVlanSupport() {
+	public SkyportVLANSupport getSkyportVlanSupport() {
 		return this.timedVLANSupport;
 	}
 

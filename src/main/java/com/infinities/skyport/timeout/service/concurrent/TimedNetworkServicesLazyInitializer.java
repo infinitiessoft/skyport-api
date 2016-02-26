@@ -19,14 +19,14 @@ import java.util.concurrent.ExecutorService;
 
 import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.apache.commons.lang3.concurrent.LazyInitializer;
-import org.dasein.cloud.network.NetworkServices;
 
 import com.infinities.skyport.ServiceProvider;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.NetworkConfiguration;
+import com.infinities.skyport.network.SkyportNetworkServices;
 import com.infinities.skyport.timeout.service.TimedNetworkServices;
 
-public class TimedNetworkServicesLazyInitializer extends LazyInitializer<NetworkServices> {
+public class TimedNetworkServicesLazyInitializer extends LazyInitializer<SkyportNetworkServices> {
 
 	private ServiceProvider inner;
 	private NetworkConfiguration computeConfiguration;
@@ -42,10 +42,10 @@ public class TimedNetworkServicesLazyInitializer extends LazyInitializer<Network
 	}
 
 	@Override
-	protected NetworkServices initialize() throws ConcurrentException {
+	protected SkyportNetworkServices initialize() throws ConcurrentException {
 		try {
 			if (inner.hasNetworkServices()) {
-				return new TimedNetworkServices(inner.getNetworkServices(), computeConfiguration, executor);
+				return new TimedNetworkServices(inner.getSkyportNetworkServices(), computeConfiguration, executor);
 			}
 		} catch (InitializationException e) {
 			throw new ConcurrentException(e);

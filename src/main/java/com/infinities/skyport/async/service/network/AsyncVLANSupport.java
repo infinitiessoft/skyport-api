@@ -40,6 +40,8 @@ import org.dasein.cloud.network.VLANSupport;
 import org.dasein.cloud.network.VlanCreateOptions;
 
 import com.infinities.skyport.async.AsyncResult;
+import com.infinities.skyport.network.NICAttachOptions;
+import com.infinities.skyport.network.NICDetachOptions;
 
 public interface AsyncVLANSupport extends AccessControlledService {
 
@@ -216,14 +218,12 @@ public interface AsyncVLANSupport extends AccessControlledService {
 	/**
 	 * Attaches a network interface to an existing virtual machine.
 	 * 
-	 * @param nicId
-	 *            the unique ID of the network interface to attach
-	 * @param vmId
-	 *            the virtual machine to which the network interface should be
-	 *            attached
-	 * @param index
-	 *            the 1-based index (-1 meaning at the end) for the attached
-	 *            interface
+	 * Attaches a network interface to an existing virtual machine with the
+	 * specified attach options
+	 * 
+	 * @param options
+	 *            the options to be used in attaching the network interface
+	 * @return an ID of the network interface been attached
 	 * @throws CloudException
 	 *             an error occurred with the cloud provider attaching the
 	 *             interface
@@ -231,8 +231,8 @@ public interface AsyncVLANSupport extends AccessControlledService {
 	 *             an error occurred within the Dasein Cloud implementation
 	 *             attaching the interface
 	 */
-	public AsyncResult<Void> attachNetworkInterface(@Nonnull String nicId, @Nonnull String vmId, int index)
-			throws CloudException, InternalException;
+	public AsyncResult<String> attachNetworkInterface(@Nonnull NICAttachOptions options) throws CloudException,
+			InternalException;
 
 	/**
 	 * Creates an Internet gateway for the specified VLAN. This method makes
@@ -334,15 +334,16 @@ public interface AsyncVLANSupport extends AccessControlledService {
 	 * Detaches the specified network interface from any virtual machine it
 	 * might be attached to.
 	 * 
-	 * @param nicId
-	 *            the unique ID of the network interface to be detached
+	 * @param options
+	 *            the options to be used in attaching the network interface
 	 * @throws CloudException
 	 *             an error occurred with the cloud provider while detaching the
 	 *             network interface
 	 * @throws InternalException
 	 *             a local error occurred while detaching the network interface
 	 */
-	public AsyncResult<Void> detachNetworkInterface(@Nonnull String nicId) throws CloudException, InternalException;
+	public AsyncResult<Void> detachNetworkInterface(@Nonnull NICDetachOptions options) throws CloudException,
+			InternalException;
 
 	/**
 	 * Provides access to meta-data about VLAN capabilities in the current

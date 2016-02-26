@@ -19,14 +19,14 @@ import java.util.concurrent.ExecutorService;
 
 import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.apache.commons.lang3.concurrent.LazyInitializer;
-import org.dasein.cloud.dc.DataCenterServices;
 
 import com.infinities.skyport.ServiceProvider;
+import com.infinities.skyport.dc.SkyportDataCenterServices;
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.DataCenterConfiguration;
 import com.infinities.skyport.timeout.ServiceProviderTimeLimiter;
 
-public class TimedDataCenterServicesLazyInitializer extends LazyInitializer<DataCenterServices> {
+public class TimedDataCenterServicesLazyInitializer extends LazyInitializer<SkyportDataCenterServices> {
 
 	private ServiceProvider inner;
 	private DataCenterConfiguration dataCenterConfiguration;
@@ -42,11 +42,11 @@ public class TimedDataCenterServicesLazyInitializer extends LazyInitializer<Data
 	}
 
 	@Override
-	protected DataCenterServices initialize() throws ConcurrentException {
+	protected SkyportDataCenterServices initialize() throws ConcurrentException {
 		try {
-			if (inner.getDataCenterServices() != null) {
+			if (inner.getSkyportDataCenterServices() != null) {
 				ServiceProviderTimeLimiter timedLimiter = new ServiceProviderTimeLimiter(executor);
-				return timedLimiter.newProxy(inner.getDataCenterServices(), DataCenterServices.class,
+				return timedLimiter.newProxy(inner.getSkyportDataCenterServices(), SkyportDataCenterServices.class,
 						dataCenterConfiguration);
 			}
 		} catch (InitializationException e) {
