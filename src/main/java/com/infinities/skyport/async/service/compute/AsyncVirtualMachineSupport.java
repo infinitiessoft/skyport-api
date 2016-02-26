@@ -44,6 +44,7 @@ import org.dasein.cloud.identity.ServiceAction;
 
 import com.infinities.skyport.async.AsyncResult;
 import com.infinities.skyport.compute.SkyportVirtualMachineSupport;
+import com.infinities.skyport.compute.VMUpdateOptions;
 import com.infinities.skyport.compute.entity.MinimalResource;
 import com.infinities.skyport.compute.entity.NovaStyleVirtualMachine;
 
@@ -870,4 +871,7 @@ public interface AsyncVirtualMachineSupport extends AccessControlledService {
 	public AsyncResult<Iterable<MinimalResource>> listMinimalVirtualMachines() throws InternalException, CloudException;
 
 	public SkyportVirtualMachineSupport getSupport();
+
+	public AsyncResult<VirtualMachine> updateVirtualMachine(String virtualMachineId, VMUpdateOptions options)
+			throws InternalException, CloudException;
 }

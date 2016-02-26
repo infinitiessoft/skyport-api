@@ -72,6 +72,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 	private FunctionConfiguration removeTags = new FunctionConfiguration();
 	private FunctionConfiguration listNovaStyleVirtualMachines = new FunctionConfiguration();
 	private FunctionConfiguration listMinimalVirtualMachines = new FunctionConfiguration();
+	private FunctionConfiguration updateVirtualMachine = new FunctionConfiguration();
 
 
 	public VirtualMachineConfiguration() {
@@ -457,6 +458,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		clone.setRemoveTags(removeTags.clone());
 		clone.setListMinimalVirtualMachines(listMinimalVirtualMachines.clone());
 		clone.setListNovaStyleVirtualMachines(listNovaStyleVirtualMachines.clone());
+		clone.setUpdateVirtualMachine(updateVirtualMachine.clone());
 		return clone;
 	}
 
@@ -468,11 +470,13 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((alterVirtualMachineProduct == null) ? 0 : alterVirtualMachineProduct.hashCode());
 		result = prime * result + ((alterVirtualMachineSize == null) ? 0 : alterVirtualMachineSize.hashCode());
 		result = prime * result + ((cancelSpotDataFeedSubscription == null) ? 0 : cancelSpotDataFeedSubscription.hashCode());
-		result = prime * result
-				+ ((cancelSpotVirtualMachineRequest == null) ? 0 : cancelSpotVirtualMachineRequest.hashCode());
+		result =
+				prime * result
+						+ ((cancelSpotVirtualMachineRequest == null) ? 0 : cancelSpotVirtualMachineRequest.hashCode());
 		result = prime * result + ((clone == null) ? 0 : clone.hashCode());
-		result = prime * result
-				+ ((createSpotVirtualMachineRequest == null) ? 0 : createSpotVirtualMachineRequest.hashCode());
+		result =
+				prime * result
+						+ ((createSpotVirtualMachineRequest == null) ? 0 : createSpotVirtualMachineRequest.hashCode());
 		result = prime * result + ((disableAnalytics == null) ? 0 : disableAnalytics.hashCode());
 		result = prime * result + ((enableAnalytics == null) ? 0 : enableAnalytics.hashCode());
 		result = prime * result + ((enableSpotDataFeedSubscription == null) ? 0 : enableSpotDataFeedSubscription.hashCode());
@@ -506,6 +510,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((updateTags == null) ? 0 : updateTags.hashCode());
 		result = prime * result + ((listMinimalVirtualMachines == null) ? 0 : listMinimalVirtualMachines.hashCode());
 		result = prime * result + ((listNovaStyleVirtualMachines == null) ? 0 : listNovaStyleVirtualMachines.hashCode());
+		result = prime * result + ((updateVirtualMachine == null) ? 0 : updateVirtualMachine.hashCode());
 		return result;
 	}
 
@@ -718,7 +723,27 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 				return false;
 		} else if (!listNovaStyleVirtualMachines.equals(other.listNovaStyleVirtualMachines))
 			return false;
+		if (updateVirtualMachine == null) {
+			if (other.updateVirtualMachine != null)
+				return false;
+		} else if (!updateVirtualMachine.equals(other.updateVirtualMachine))
+			return false;
 		return true;
+	}
+
+	/**
+	 * @return the updateVirtualMachine
+	 */
+	public FunctionConfiguration getUpdateVirtualMachine() {
+		return updateVirtualMachine;
+	}
+
+	/**
+	 * @param updateVirtualMachine
+	 *            the updateVirtualMachine to set
+	 */
+	public void setUpdateVirtualMachine(FunctionConfiguration updateVirtualMachine) {
+		this.updateVirtualMachine = updateVirtualMachine;
 	}
 
 }
