@@ -36,12 +36,12 @@ import org.dasein.cloud.network.Subnet;
 import org.dasein.cloud.network.SubnetCreateOptions;
 import org.dasein.cloud.network.VLAN;
 import org.dasein.cloud.network.VLANCapabilities;
-import org.dasein.cloud.network.VLANSupport;
 import org.dasein.cloud.network.VlanCreateOptions;
 
 import com.infinities.skyport.async.AsyncResult;
 import com.infinities.skyport.network.NICAttachOptions;
 import com.infinities.skyport.network.NICDetachOptions;
+import com.infinities.skyport.network.SkyportVLANSupport;
 
 public interface AsyncVLANSupport extends AccessControlledService {
 
@@ -1206,5 +1206,5 @@ public interface AsyncVLANSupport extends AccessControlledService {
 	public AsyncResult<Void> setInternetGatewayTags(@Nonnull String[] internetGatewayIds, @Nonnull Tag... tags)
 			throws CloudException, InternalException;
 
-	VLANSupport getSupport();
+	SkyportVLANSupport getSupport();
 }

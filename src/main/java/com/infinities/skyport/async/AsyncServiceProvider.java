@@ -53,7 +53,7 @@ public interface AsyncServiceProvider {
 			case BillingSupport:
 				return serviceProvider.getAdminServices().getBillingSupport();
 			case BlobStoreSupport:
-				return serviceProvider.getStorageServices().getOnlineStorageSupport();
+				return serviceProvider.getSkyportStorageServices().getSkyportOnlineStorageSupport();
 			case CDNSupport:
 				return serviceProvider.getPlatformServices().getCDNSupport();
 			case ConvergedHttpLoadBalancerSupport:
@@ -85,7 +85,7 @@ public interface AsyncServiceProvider {
 			case NetworkFirewallSupport:
 				return serviceProvider.getSkyportNetworkServices().getNetworkFirewallSupport();
 			case OfflineStoreSupport:
-				return serviceProvider.getStorageServices().getOfflineStorageSupport();
+				return serviceProvider.getSkyportStorageServices().getOfflineStorageSupport();
 			case PrepaymentSupport:
 				return serviceProvider.getAdminServices().getPrepaymentSupport();
 			case PushNotificationSupport:

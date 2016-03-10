@@ -27,7 +27,6 @@ import org.dasein.cloud.admin.AdminServices;
 import org.dasein.cloud.ci.CIServices;
 import org.dasein.cloud.identity.IdentityServices;
 import org.dasein.cloud.platform.PlatformServices;
-import org.dasein.cloud.storage.StorageServices;
 import org.dasein.cloud.util.NamingConstraints;
 import org.dasein.cloud.util.ResourceNamespace;
 import org.slf4j.Logger;
@@ -39,6 +38,7 @@ import com.infinities.skyport.dc.SkyportDataCenterServices;
 import com.infinities.skyport.model.configuration.Configuration;
 import com.infinities.skyport.network.SkyportNetworkServices;
 import com.infinities.skyport.service.ConfigurationLifeCycleListener;
+import com.infinities.skyport.storage.SkyportStorageServices;
 import com.infinities.skyport.timeout.service.concurrent.TimedAdminServicesLazyInitializer;
 import com.infinities.skyport.timeout.service.concurrent.TimedCIServicesLazyInitializer;
 import com.infinities.skyport.timeout.service.concurrent.TimedComputeServicesLazyInitializer;
@@ -146,7 +146,7 @@ public class TimedServiceProvider implements ServiceProvider, ConfigurationLifeC
 	}
 
 	@Override
-	public StorageServices getStorageServices() throws ConcurrentException {
+	public SkyportStorageServices getSkyportStorageServices() throws ConcurrentException {
 		return timedStorageServices.get();
 	}
 
