@@ -71,6 +71,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 	private FunctionConfiguration setTags = new FunctionConfiguration();
 	private FunctionConfiguration removeTags = new FunctionConfiguration();
 	private FunctionConfiguration listNovaStyleVirtualMachines = new FunctionConfiguration();
+	private FunctionConfiguration getNovaStyleVirtualMachine = new FunctionConfiguration();
 	private FunctionConfiguration listMinimalVirtualMachines = new FunctionConfiguration();
 	private FunctionConfiguration updateVirtualMachine = new FunctionConfiguration();
 
@@ -414,6 +415,21 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		this.listMinimalVirtualMachines = listMinimalVirtualMachines;
 	}
 
+	/**
+	 * @return the getNovaStyleVirtualMachine
+	 */
+	public FunctionConfiguration getGetNovaStyleVirtualMachine() {
+		return getNovaStyleVirtualMachine;
+	}
+
+	/**
+	 * @param getNovaStyleVirtualMachine
+	 *            the getNovaStyleVirtualMachine to set
+	 */
+	public void setGetNovaStyleVirtualMachine(FunctionConfiguration getNovaStyleVirtualMachine) {
+		this.getNovaStyleVirtualMachine = getNovaStyleVirtualMachine;
+	}
+
 	@Override
 	public VirtualMachineConfiguration clone() {
 		VirtualMachineConfiguration clone = new VirtualMachineConfiguration();
@@ -459,6 +475,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		clone.setListMinimalVirtualMachines(listMinimalVirtualMachines.clone());
 		clone.setListNovaStyleVirtualMachines(listNovaStyleVirtualMachines.clone());
 		clone.setUpdateVirtualMachine(updateVirtualMachine.clone());
+		clone.setGetNovaStyleVirtualMachine(getNovaStyleVirtualMachine.clone());
 		return clone;
 	}
 
@@ -511,6 +528,7 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((listMinimalVirtualMachines == null) ? 0 : listMinimalVirtualMachines.hashCode());
 		result = prime * result + ((listNovaStyleVirtualMachines == null) ? 0 : listNovaStyleVirtualMachines.hashCode());
 		result = prime * result + ((updateVirtualMachine == null) ? 0 : updateVirtualMachine.hashCode());
+		result = prime * result + ((getNovaStyleVirtualMachine == null) ? 0 : getNovaStyleVirtualMachine.hashCode());
 		return result;
 	}
 
@@ -727,6 +745,11 @@ public class VirtualMachineConfiguration implements Serializable, Cloneable {
 			if (other.updateVirtualMachine != null)
 				return false;
 		} else if (!updateVirtualMachine.equals(other.updateVirtualMachine))
+			return false;
+		if (getNovaStyleVirtualMachine == null) {
+			if (other.getNovaStyleVirtualMachine != null)
+				return false;
+		} else if (!getNovaStyleVirtualMachine.equals(other.getNovaStyleVirtualMachine))
 			return false;
 		return true;
 	}

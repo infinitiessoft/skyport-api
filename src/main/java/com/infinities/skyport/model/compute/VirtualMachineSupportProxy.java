@@ -367,4 +367,17 @@ public class VirtualMachineSupportProxy implements AsyncVirtualMachineSupport, S
 		return support.updateVirtualMachine(virtualMachineId, options);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.infinities.skyport.async.service.compute.AsyncVirtualMachineSupport
+	 * #getNovaStyleVirtualMachines(java.lang.String)
+	 */
+	@Override
+	public AsyncResult<NovaStyleVirtualMachine> getNovaStyleVirtualMachine(String vmId) throws InternalException,
+			CloudException {
+		return support.getNovaStyleVirtualMachine(vmId);
+	}
+
 }

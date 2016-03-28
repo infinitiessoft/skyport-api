@@ -860,6 +860,21 @@ public interface AsyncVirtualMachineSupport extends AccessControlledService {
 			CloudException;
 
 	/**
+	 * Provides the data from a specific virtual machine in OpenStack Nova api
+	 * style.
+	 *
+	 * @param vmId
+	 *            the provider ID for the desired server
+	 * @return the data behind the target server
+	 * @throws InternalException
+	 *             an error occurred within the Dasein Cloud API implementation
+	 * @throws CloudException
+	 *             an error occurred within the cloud provider
+	 */
+	public AsyncResult<NovaStyleVirtualMachine> getNovaStyleVirtualMachine(String vmId) throws InternalException,
+			CloudException;
+
+	/**
 	 * Lists only id and name for all virtual machines in the current region.
 	 *
 	 * @return id and name for all virtual machines in the current region
