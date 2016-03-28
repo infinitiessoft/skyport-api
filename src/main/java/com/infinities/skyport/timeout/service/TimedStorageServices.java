@@ -17,22 +17,22 @@ package com.infinities.skyport.timeout.service;
 
 import java.util.concurrent.ExecutorService;
 
-import org.dasein.cloud.storage.BlobStoreSupport;
 import org.dasein.cloud.storage.OfflineStoreSupport;
-import org.dasein.cloud.storage.StorageServices;
 
 import com.infinities.skyport.exception.InitializationException;
 import com.infinities.skyport.model.configuration.service.StorageConfiguration;
+import com.infinities.skyport.storage.SkyportBlobStoreSupport;
+import com.infinities.skyport.storage.SkyportStorageServices;
 import com.infinities.skyport.timeout.ServiceProviderTimeLimiter;
 
-public class TimedStorageServices implements StorageServices {
+public class TimedStorageServices implements SkyportStorageServices {
 
-	private final StorageServices inner;
+	private final SkyportStorageServices inner;
 	private OfflineStoreSupport timedOfflineStoreSupport;
-	private BlobStoreSupport timedOnlineStorageSupport;
+	private SkyportBlobStoreSupport timedOnlineStorageSupport;
 
 
-	public TimedStorageServices(StorageServices inner, StorageConfiguration storageConfiguration, ExecutorService executor)
+	public TimedStorageServices(SkyportStorageServices inner, StorageConfiguration storageConfiguration, ExecutorService executor)
 			throws InitializationException {
 		this.inner = inner;
 		ServiceProviderTimeLimiter timedLimiter = new ServiceProviderTimeLimiter(executor);
@@ -43,21 +43,9 @@ public class TimedStorageServices implements StorageServices {
 		}
 		if (inner.hasOnlineStorageSupport()) {
 			this.timedOnlineStorageSupport =
-					timedLimiter.newProxy(inner.getOnlineStorageSupport(), BlobStoreSupport.class,
+					timedLimiter.newProxy(inner.getSkyportOnlineStorageSupport(), SkyportBlobStoreSupport.class,
 							storageConfiguration.getOnlineStorageConfiguration());
 		}
-	}
-
-	@Deprecated
-	@Override
-	public BlobStoreSupport getBlobStoreSupport() {
-		return inner.getBlobStoreSupport();
-	}
-
-	@Deprecated
-	@Override
-	public boolean hasBlobStoreSupport() {
-		return inner.hasBlobStoreSupport();
 	}
 
 	@Override
@@ -71,7 +59,7 @@ public class TimedStorageServices implements StorageServices {
 	}
 
 	@Override
-	public BlobStoreSupport getOnlineStorageSupport() {
+	public SkyportBlobStoreSupport getSkyportOnlineStorageSupport() {
 		return this.timedOnlineStorageSupport;
 	}
 

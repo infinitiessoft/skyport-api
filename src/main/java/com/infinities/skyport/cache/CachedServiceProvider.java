@@ -21,10 +21,21 @@ import org.apache.commons.lang3.concurrent.ConcurrentException;
 
 import com.infinities.skyport.async.AsyncServiceProvider;
 import com.infinities.skyport.cache.service.CachedComputeServices;
+import com.infinities.skyport.cache.service.CachedNetworkServices;
+import com.infinities.skyport.cache.service.CachedStorageServices;
 
 public interface CachedServiceProvider extends AsyncServiceProvider {
 
 	@Override
 	@Nullable
 	CachedComputeServices getComputeServices() throws ConcurrentException;
+
+	@Override
+	@Nullable
+	CachedNetworkServices getNetworkServices() throws ConcurrentException;
+	
+	@Override
+	@Nullable
+	CachedStorageServices getStorageServices() throws ConcurrentException;
+	
 }

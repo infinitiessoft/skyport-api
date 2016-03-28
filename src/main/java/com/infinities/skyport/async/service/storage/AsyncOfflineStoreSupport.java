@@ -24,11 +24,11 @@ import org.dasein.cloud.CloudException;
 import org.dasein.cloud.InternalException;
 import org.dasein.cloud.identity.ServiceAction;
 import org.dasein.cloud.storage.Blob;
-import org.dasein.cloud.storage.BlobStoreSupport;
 import org.dasein.cloud.storage.FileTransfer;
 import org.dasein.cloud.storage.OfflineStoreRequest;
 
 import com.infinities.skyport.async.AsyncResult;
+import com.infinities.skyport.storage.SkyportBlobStoreSupport;
 
 public interface AsyncOfflineStoreSupport extends AsyncBlobStoreSupport {
 
@@ -125,5 +125,5 @@ public interface AsyncOfflineStoreSupport extends AsyncBlobStoreSupport {
 			@Nonnull File toFile) throws InternalException, CloudException;
 
 	@Override
-	BlobStoreSupport getSupport();
+	SkyportBlobStoreSupport getSupport();
 }

@@ -16,6 +16,7 @@
 package com.infinities.skyport.async.service.storage;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,11 +28,11 @@ import org.dasein.cloud.Tag;
 import org.dasein.cloud.identity.ServiceAction;
 import org.dasein.cloud.storage.Blob;
 import org.dasein.cloud.storage.BlobStoreCapabilities;
-import org.dasein.cloud.storage.BlobStoreSupport;
 import org.dasein.cloud.storage.FileTransfer;
 import org.dasein.util.uom.storage.Storage;
 
 import com.infinities.skyport.async.AsyncResult;
+import com.infinities.skyport.storage.SkyportBlobStoreSupport;
 
 public interface AsyncBlobStoreSupport extends AccessControlledService {
 
@@ -197,5 +198,23 @@ public interface AsyncBlobStoreSupport extends AccessControlledService {
 	 */
 	AsyncResult<Void> setTags(@Nonnull String[] buckets, @Nonnull Tag... tags) throws CloudException, InternalException;
 
-	BlobStoreSupport getSupport();
+	public AsyncResult<Void> copy(@Nullable String sourceBucket, @Nullable String sourceObject, @Nullable String targetBucket,
+			@Nullable String targetObject) throws InternalException, CloudException;
+	
+	AsyncResult<Map<String, String>> getMetadata(String ... strs) throws CloudException, InternalException;
+	
+	AsyncResult<Void> setObjectTags(@Nonnull String bucketName, @Nonnull String objectName, @Nonnull Tag... tags) throws CloudException, InternalException;
+
+	AsyncResult<Void> setObjectTags(@Nonnull String bucketName, @Nonnull String[] objectNames, @Nonnull Tag... tags) throws CloudException, InternalException;
+
+	AsyncResult<Void> updateObjectTags(@Nonnull String bucketName, @Nonnull String objectName, @Nonnull Tag ... tags) throws CloudException, InternalException;
+	
+	AsyncResult<Void> updateObjectTags(@Nonnull String bucketName, @Nonnull String[] objectNames, @Nonnull Tag ... tags) throws CloudException, InternalException; 
+	
+	AsyncResult<Void> removeObjectTags(@Nonnull String bucketName, @Nonnull String objectName, @Nonnull Tag ... tags) throws CloudException, InternalException;
+	
+	AsyncResult<Void> removeObjectTags(@Nonnull String bucketName, @Nonnull String[] objectNames, @Nonnull Tag ... tags) throws CloudException, InternalException; 
+
+	
+	SkyportBlobStoreSupport getSupport();
 }

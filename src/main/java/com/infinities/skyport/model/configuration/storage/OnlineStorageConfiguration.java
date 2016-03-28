@@ -42,7 +42,12 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 	private FunctionConfiguration updateTags = new FunctionConfiguration();
 	private FunctionConfiguration removeTags = new FunctionConfiguration();
 	private FunctionConfiguration setTags = new FunctionConfiguration();
-
+	private FunctionConfiguration copy = new FunctionConfiguration();
+	private FunctionConfiguration getMetadata = new FunctionConfiguration();
+	
+	private FunctionConfiguration setObjectTags = new FunctionConfiguration();
+	private FunctionConfiguration updateObjectTags = new FunctionConfiguration();
+	private FunctionConfiguration removeObjectTags = new FunctionConfiguration();
 
 	public FunctionConfiguration getClearBucket() {
 		return clearBucket;
@@ -203,6 +208,46 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 	public void setSetTags(FunctionConfiguration setTags) {
 		this.setTags = setTags;
 	}
+	
+	public FunctionConfiguration getCopy() {
+		return copy;
+	}
+
+	public void setCopy(FunctionConfiguration copy) {
+		this.copy = copy;
+	}
+	
+	public FunctionConfiguration getGetMetadata() {
+		return getMetadata;
+	}
+
+	public void setGetMetadata(FunctionConfiguration getMetadata) {
+		this.getMetadata = getMetadata;
+	}
+
+	public FunctionConfiguration getSetObjectTags() {
+		return setObjectTags;
+	}
+
+	public void setSetObjectTags(FunctionConfiguration setObjectTags) {
+		this.setObjectTags = setObjectTags;
+	}
+
+	public FunctionConfiguration getUpdateObjectTags() {
+		return updateObjectTags;
+	}
+
+	public void setUpdateObjectTags(FunctionConfiguration updateObjectTags) {
+		this.updateObjectTags = updateObjectTags;
+	}
+
+	public FunctionConfiguration getRemoveObjectTags() {
+		return removeObjectTags;
+	}
+
+	public void setRemoveObjectTags(FunctionConfiguration removeObjectTags) {
+		this.removeObjectTags = removeObjectTags;
+	}
 
 	@Override
 	public OnlineStorageConfiguration clone() {
@@ -232,6 +277,8 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 		clone.updateTags = updateTags.clone();
 		clone.removeTags = removeTags.clone();
 		clone.setTags = setTags.clone();
+		clone.copy = copy.clone();
+		clone.getMetadata = getMetadata.clone();
 		return clone;
 	}
 
@@ -259,6 +306,12 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 		result = prime * result + ((setTags == null) ? 0 : setTags.hashCode());
 		result = prime * result + ((updateTags == null) ? 0 : updateTags.hashCode());
 		result = prime * result + ((upload == null) ? 0 : upload.hashCode());
+		result = prime * result + ((copy == null) ? 0 : copy.hashCode());
+		result = prime * result + ((getMetadata == null) ? 0 : getMetadata.hashCode());
+		result = prime * result + ((setObjectTags == null) ? 0 : setObjectTags.hashCode());
+		result = prime * result + ((updateObjectTags == null) ? 0 : updateObjectTags.hashCode());
+		result = prime * result + ((removeObjectTags == null) ? 0 : removeObjectTags.hashCode());
+		
 		return result;
 	}
 
@@ -370,6 +423,31 @@ public class OnlineStorageConfiguration implements Serializable, Cloneable {
 			if (other.upload != null)
 				return false;
 		} else if (!upload.equals(other.upload))
+			return false;
+		if (copy == null) {
+			if (other.copy != null)
+				return false;
+		} else if (!copy.equals(other.copy))
+			return false;
+		if (getMetadata == null) {
+			if (other.getMetadata != null)
+				return false;
+		} else if (!getMetadata.equals(other.getMetadata))
+			return false;
+		if (setObjectTags == null) {
+			if (other.setObjectTags != null)
+				return false;
+		} else if (!setObjectTags.equals(other.setObjectTags))
+			return false;
+		if (updateObjectTags == null) {
+			if (other.updateObjectTags != null)
+				return false;
+		} else if (!updateObjectTags.equals(other.updateObjectTags))
+			return false;
+		if (removeObjectTags == null) {
+			if (other.removeObjectTags != null)
+				return false;
+		} else if (!removeObjectTags.equals(other.removeObjectTags))
 			return false;
 		return true;
 	}
